@@ -16,7 +16,11 @@ func (a *App) RunWarmupBurnScheduler(ctx context.Context, ignitionAt time.Time) 
 	if err != nil {
 		return err
 	}
-	return a.scheduler.InstallBurnPlanCtx(context.Background(), snap.Settings, "warmup-burn")
+	// Propagate the operator's cancellation context into the plan install so a
+	// 暖机撤单 aborts subsequent drive-step appends, not just the UI. Detaching
+	// to context.Background() defeated InstallBurnPlanCtx's per-step ctx.Err()
+	// check and left the old drive segment queued after cancellation.
+	return a.scheduler.InstallBurnPlanCtx(ctx, snap.Settings, "warmup-burn")
 }
 
 func (a *App) SchedulerItemCount() int {
