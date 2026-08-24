@@ -39,7 +39,7 @@ func NewBeltprepWindow(clk ProcessClock) *BeltprepWindow {
 }
 
 func (p *BeltprepWindow) Ready(startedAt time.Time) bool {
-	return time.Since(startedAt) >= model.BeltprepWindow
+	return p.window.Satisfied(p.clk, startedAt)
 }
 
 func (p *BeltprepWindow) Require(startedAt time.Time) error {
