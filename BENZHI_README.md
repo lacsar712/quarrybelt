@@ -1,6 +1,6 @@
-# HookRelay
+# quarrybelt
 
-Signed ingress + reliable outbound webhook delivery (retry, circuit breaker, rate limit, DLQ, replay).
+quarrybelt 是一套采石场输送带工业过程控制系统，用于皮带组爬坡、张力监护与驱动状态联锁。
 
 ## Requirements
 
